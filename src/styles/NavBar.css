@@ -1,0 +1,14 @@
+.navbar-container {
+  border-bottom: 1px solid black;
+}
+
+.list-container {
+  margin-top: 15px;
+}
+
+li {
+  display: inline;
+  list-style-type: none;
+  margin-right: 15px;
+  padding: 0;
+}
