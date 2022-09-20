@@ -1,23 +1,34 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
-import JoblyAPi from './JoblyApi';
 import CompaniesList from "./CompaniesList";
 import CompanyDetail from "./CompanyDetail";
 import JobsList from "./JobsList";
 import Homepage from "./Homepage";
-import NavBar from "./NavBar";
+import Profile from './Profile';
+import LoginForm from './LoginForm';
+import SignUpForm from './SignUpForm';
 
-const RouteList = () => {
+const RouteList = ({login, signUp, editProfile, handleApplication}) => {
+
   return (
-      <BrowserRouter>
-        <NavBar/>
-        <Routes>
-          <Route path="/" element={<Homepage/>} />
+    <Routes>
+      <Route path="/" element={<Homepage/>} />
+      <Route path="/login" element={<LoginForm onLogin={login}/>} />
+      <Route path="/signup" element={<SignUpForm onSignUp={signUp}/>} />
+      {
+        localStorage.getItem('token') ?
+        <>
           <Route path="/companies" element={<CompaniesList/>} />
-          <Route path="/companies/:company" element={<CompanyDetail/>} />
-          <Route path="/jobs" element={<JobsList/>} />
-        </Routes>
-      </BrowserRouter>
+          <Route path="/companies/:company" element={<CompanyDetail handleApplication={handleApplication}/>} />
+          <Route path="/jobs" element={<JobsList handleApplication={handleApplication}/>} />
+          <Route path="/profile" element={<Profile editProfile={editProfile}/>} />
+        </> :
+        <>
+          <Route path="*" element={<Navigate to='/login'/>} /> cannot access above links if not logged in
+        </>
+      }
+       <Route path="*" element={<Navigate to='/'/>} /> handle 404 errors
+    </Routes>
   )
 }
 

@@ -4,7 +4,7 @@ import JobCardList from "./JobCardList";
 import JoblyApi from "./JoblyApi";
 import SearchBar from "./SearchBar";
 
-const JobsList = () => {
+const JobsList = ({handleApplication}) => {
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,7 +28,7 @@ const JobsList = () => {
   return (
     <div>
       <SearchBar search={onSearch}/>
-      <JobCardList jobs={jobs}/>
+      <JobCardList jobs={jobs} handleApplication={handleApplication}/>
     </div>
   )
 }

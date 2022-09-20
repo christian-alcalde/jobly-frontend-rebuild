@@ -14,9 +14,7 @@ class JoblyApi {
   // Remember, the backend needs to be authorized with a token
   // We're providing a token you can use to interact with the backend API
   // DON'T MODIFY THIS TOKEN
-  static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+  static token = "";
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
@@ -42,7 +40,6 @@ class JoblyApi {
 
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
-    console.log(res);
     return res.company;
   }
 
@@ -60,8 +57,50 @@ class JoblyApi {
     return res.jobs;
   }
 
+  /** Get details on a specific user. */
 
-  // obviously, you'll add a lot here ...
+  static async getUser(username) {
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  }
+
+  /** Edit details on a specific user. */
+
+  static async editUser(username, formData) {
+    let res = await this.request(`users/${username}`, formData, 'patch');
+    return res.user;
+  }
+
+  /** Logs a user in and returns a token. */
+
+  static async getToken(formData) {
+    let res = await this.request(`auth/token`, formData, 'post');
+    return res.token;
+  }
+
+  /** Register a user. */
+
+  static async register(formData) {
+    let res = await this.request(`auth/register`, formData, 'post');
+    return res.token;
+  }
+
+  /** Allows a user to apply for a specific job. */
+
+  static async apply(username, id) {
+    let res = await this.request(`users/${username}/jobs/${id}`, {}, 'post');
+    return res;
+  }
+
+  /** Allows a user to unapply for a specific job. */
+
+  static async unapply(username, id) {
+    console.log('in unapply')
+    let res = await this.request(`users/${username}/jobs/${id}`, {}, 'delete');
+    console.log('unapply res', res);
+    return res;
+  }
+
 }
 
 export default JoblyApi;

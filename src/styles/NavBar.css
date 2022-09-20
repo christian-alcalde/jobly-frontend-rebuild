@@ -6,6 +6,11 @@
   margin-top: 15px;
 }
 
+.logout-button {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 li {
   display: inline;
   list-style-type: none;

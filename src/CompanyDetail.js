@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import JobCardList from "./JobCardList";
 import JoblyApi from "./JoblyApi";
 
-const CompanyDetail = () => {
+const CompanyDetail = ({handleApplication}) => {
   const [company, setCompany] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -26,7 +26,7 @@ const CompanyDetail = () => {
         <h4>{company.name}</h4>
         <p>{company.description}</p>
       </div>
-      <JobCardList jobs={company.jobs}/>
+      <JobCardList jobs={company.jobs} handleApplication={handleApplication}/>
     </div>
   )
 }

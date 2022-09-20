@@ -13,7 +13,7 @@ const SearchBar = ({search}) => {
   }
 
   return (
-    <div>
+    <div className="mx-auto">
       <form onSubmit={submitHandler}>
         <input type='text' value={formData} onChange={handleChangeSearchTerm} placeholder="Enter search term..."></input>
         <button>Submit</button>
